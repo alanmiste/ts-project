@@ -1,24 +1,29 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import { useFetchPokemonsQuery } from './features/pokemon/pokemonApiSlice';
+import { useAppSelector, useAppDispatch } from './app/hooks';
+import { receivedPokemon } from './features/pokemon/pokemonSlice';
 
 function App() {
+
+  const dispatch = useAppDispatch();
+  const poke = useAppSelector(state => state.pokemon)
+
+  useEffect(() => {
+    if (data)
+      dispatch(receivedPokemon(data))
+  }, [])
+  const { data } = useFetchPokemonsQuery();
+  console.log(data)
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      Hello World!
+      <div>
+        {/* {data?.results.map(item => <li>{item.name}</li>)} */}
+        {poke.name}
+        {poke.height}
+      </div>
     </div>
   );
 }
